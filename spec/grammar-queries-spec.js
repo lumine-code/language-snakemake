@@ -20,10 +20,10 @@ describe(`${PACKAGE_NAME} Tree-sitter queries`, () => {
 
   beforeEach(async () => {
     jasmine.useRealClock();
-    await lumine.packages.activatePackage(PACKAGE_NAME);
+    const packageDir = path.resolve(__dirname, "..");
+    await lumine.packages.activatePackage(packageDir);
 
     // Every bundled grammar is registered too; keep only this package's.
-    const packageDir = path.resolve(__dirname, "..");
     grammars = lumine.grammars
       .getGrammars()
       .filter((grammar) => grammar.constructor.name === "TreeSitterGrammar")
