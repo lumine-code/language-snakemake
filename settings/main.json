@@ -1,0 +1,10 @@
+{
+  ".source.snakemake": {
+    "bracket-matcher": {
+      "autocompleteCharacters": ["()", "[]", "{}", "\"\"", "''"]
+    },
+    "editor": {
+      "commentStart": "# "
+    }
+  }
+}

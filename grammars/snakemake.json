@@ -1,0 +1,24 @@
+{
+  "name": "Snakemake",
+  "scopeName": "source.snakemake",
+  "type": "tree-sitter",
+  "parser": "tree-sitter-snakemake",
+  "injectionNames": ["snakemake"],
+  "fileTypes": ["Snakefile", "smk"],
+  "comments": {
+    "start": "# "
+  },
+  "treeSitter": {
+    // Pin a tag or a full SHA, never a branch. Verify the ref is on the main
+    // line before trusting it — `gh api repos/OWNER/REPO/compare/<ref>...HEAD`
+    // reporting `diverged` or a nonzero `behind` means it is not.
+    "parserSource": "github:osthomas/tree-sitter-snakemake#68010430c3e51c0e84c1ce21c6551df0e2469f51",
+    "wasmBuildTool": "tree-sitter-cli#v0.26.13",
+    "grammar": "snakemake.wasm",
+    "highlightsQuery": ["snakemake-python-highlights.scm", "snakemake-highlights.scm"],
+    "foldsQuery": ["snakemake-python-folds.scm", "snakemake-folds.scm"],
+    "indentsQuery": "snakemake-indents.scm",
+    "tagsQuery": ["snakemake-python-tags.scm", "snakemake-tags.scm"],
+    "localsQuery": ["snakemake-python-locals.scm", "snakemake-locals.scm"]
+  }
+}
