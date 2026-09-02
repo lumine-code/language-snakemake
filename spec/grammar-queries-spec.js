@@ -27,7 +27,7 @@ describe(`${PACKAGE_NAME} Tree-sitter queries`, () => {
     grammars = lumine.grammars
       .getGrammars()
       .filter((grammar) => grammar.constructor.name === "TreeSitterGrammar")
-      .filter((grammar) => grammar.grammarFilePath?.startsWith(packageDir));
+      .filter((grammar) => grammar.packageName === PACKAGE_NAME);
   });
 
   it(`registers all ${EXPECTED_GRAMMARS} Tree-sitter grammar config(s)`, () => {
