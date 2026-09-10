@@ -28,9 +28,13 @@
 
 ; These methods have magic interpretation by python and are generally called
 ; indirectly through syntactic constructs.
-((identifier) @support.function.magic.snakemake
+(call
+  function: [
+    (identifier) @support.function.magic.snakemake
+    (attribute
+      attribute: (identifier) @support.function.magic.snakemake)
+  ]
   (#match? @support.function.magic.snakemake "^__(abs|add|and|bool|bytes|call|cmp|coerce|complex|contains|del|delattr|delete|delitem|delslice|dir|div|divmod|enter|eq|exit|float|floordiv|format|ge|get|getattr|getattribute|getitem|getslice|gt|hash|hex|iadd|iand|idiv|ifloordiv|ilshift|imatmul|imod|imul|index|init|instancecheck|int|invert|ior|ipow|irshift|isub|iter|itruediv|ixor|le|len|length_hint|long|lshift|lt|matmul|missing|mod|mul|ne|neg|next|new|nonzero|oct|or|pos|pow|radd|rand|rdiv|rdivmod|repr|reversed|rfloordiv|rlshift|rmatmul|rmod|rmul|ror|round|rpow|rrshift|rshift|rsub|rtruediv|rxor|set|setattr|setitem|setslice|str|sub|subclasscheck|truediv|unicode|xor)__$")
-  (#is? test.descendantOfType call)
   (#set! capture.final true))
 
 ; Magic variables which a class/module may have.
@@ -49,7 +53,7 @@
     (#set! capture.final true))
 
 (call
-  (identifier) @support.function.builtin.snakemake
+  function: (identifier) @support.function.builtin.snakemake
   (#match? @support.function.builtin.snakemake "^(__import__|abs|all|any|ascii|bin|bool|bytearray|bytes|callable|chr|classmethod|compile|complex|delattr|dict|dir|divmod|enumerate|eval|exec|filter|float|format|frozenset|getattr|globals|hasattr|hash|help|hex|id|input|int|isinstance|issubclass|iter|len|list|locals|map|max|memoryview|min|next|object|oct|open|ord|pow|print|property|range|repr|reversed|round|set|setattr|slice|sorted|staticmethod|str|sum|super|tuple|type|vars|zip|file|long|raw_input|reduce|reload|unichr|unicode|xrange|apply|buffer|coerce|intern|execfile)$")
   (#set! capture.final true))
 
@@ -141,7 +145,7 @@
 ; --------------------
 
 (function_definition
-  (identifier) @entity.name.function.magic.snakemake
+  name: (identifier) @entity.name.function.magic.snakemake
   (#match? @entity.name.function.magic.snakemake "^__(?:abs|add|and|bool|bytes|call|cmp|coerce|complex|contains|del|delattr|delete|delitem|delslice|dir|div|divmod|enter|eq|exit|float|floordiv|format|ge|get|getattr|getattribute|getitem|getslice|gt|hash|hex|iadd|iand|idiv|ifloordiv|ilshift|imatmul|imod|imul|index|init|instancecheck|int|invert|ior|ipow|irshift|isub|iter|itruediv|ixor|le|len|length_hint|long|lshift|lt|matmul|missing|mod|mul|ne|neg|next|new|nonzero|oct|or|pos|pow|radd|rand|rdiv|rdivmod|repr|reversed|rfloordiv|rlshift|rmatmul|rmod|rmul|ror|round|rpow|rrshift|rshift|rsub|rtruediv|rxor|set|setattr|setitem|setslice|str|sub|subclasscheck|truediv|unicode|xor)__$"))
 
 (attribute
@@ -171,7 +175,8 @@
 ; COMMENTS
 ; ========
 
-(comment) @comment.line.number-sign.snakemake
+((comment) @comment.line.number-sign.snakemake
+  (#set! adjust.endBeforeFirstMatchOf "\\r?$"))
 ((comment) @punctuation.definition.comment.snakemake
   (#set! adjust.endAfterFirstMatchOf "^#"))
 
@@ -215,21 +220,18 @@
 ((string) @string.quoted.single.single-line.snakemake
   (#match? @string.quoted.single.single-line.snakemake "^[bBrRuU]*\'"))
 
-(string_content (escape_sequence) @constant.character.escape.snakemake)
+((escape_sequence) @constant.character.escape.snakemake
+  (#is? test.childOfType string_content))
 
 (interpolation
   "{" @punctuation.section.embedded.begin.snakemake
   "}" @punctuation.section.embedded.end.snakemake) @meta.embedded.line.interpolation.snakemake
 
-(string
-  _ @punctuation.definition.string.begin.snakemake
-  (#is? test.first true))
+(string_start) @punctuation.definition.string.begin.snakemake
 
-(string
-  _ @punctuation.definition.string.end.snakemake
-  (#is? test.last true))
+(string_end) @punctuation.definition.string.end.snakemake
 
-(string (string_start) @storage.type.string.snakemake
+((string_start) @storage.type.string.snakemake
   (#match? @storage.type.string.snakemake "^[bBfFtTrRuU]+")
   (#set! adjust.endAfterFirstMatchOf "^[bBfFtTrRuU]+"))
 
@@ -305,20 +307,20 @@
 ; VARIABLES
 ; =========
 
-(parameters
-  (identifier) @variable.parameter.function.snakemake)
+((identifier) @variable.parameter.function.snakemake
+  (#is? test.childOfType parameters))
 
-(parameters
-  (default_parameter
-    (identifier) @variable.parameter.function.snakemake))
+(default_parameter
+  name: (identifier) @variable.parameter.function.snakemake
+  (#is? test.typeAt "parent.parent parameters"))
 
-(parameters
-  (list_splat_pattern
-    (identifier) @variable.parameter.function.snakemake))
+(list_splat_pattern
+  (identifier) @variable.parameter.function.snakemake
+  (#is? test.typeAt "parent.parent parameters"))
 
-(parameters
-  (dictionary_splat_pattern
-    (identifier) @variable.parameter.function.snakemake))
+(dictionary_splat_pattern
+  (identifier) @variable.parameter.function.snakemake
+  (#is? test.typeAt "parent.parent parameters"))
 
 
 ; The "foo" in `except TypeError as foo:`.
@@ -427,7 +429,7 @@
 "is not" @keyword.operator.logical.is-not.snakemake
 
 (call
-  (identifier) @keyword.other._TEXT_.snakemake
+  function: (identifier) @keyword.other._TEXT_.snakemake
   (#match? @keyword.other._TEXT_.snakemake "^(exec|print)$")
   (#set! capture.final true))
 
@@ -440,24 +442,15 @@
 ; ===========
 
 ("[" @punctuation.definition.subscript.begin.bracket.square.snakemake
-  (#is? test.childOfType subscript)
-  (#is? test.first true))
+  (#is? test.childOfType subscript))
 ("]" @punctuation.definition.subscript.end.bracket.square.snakemake
-  (#is? test.childOfType subscript)
-  (#is? test.last true))
+  (#is? test.childOfType subscript))
 
 ("[" @punctuation.definition.list.begin.bracket.square.snakemake
-  (#is? test.childOfType list)
+  (#is? test.childOfType "list list_comprehension")
   (#is? test.first true))
 ("]" @punctuation.definition.list.end.bracket.square.snakemake
-  (#is? test.childOfType list)
-  (#is? test.last true))
-
-("[" @punctuation.definition.list.begin.bracket.square.snakemake
-  (#is? test.childOfType list_comprehension)
-  (#is? test.first true))
-("]" @punctuation.definition.list.end.bracket.square.snakemake
-  (#is? test.childOfType list_comprehension)
+  (#is? test.childOfType "list list_comprehension")
   (#is? test.last true))
 
 ("[" @punctuation.definition.list.begin.bracket.square.snakemake
