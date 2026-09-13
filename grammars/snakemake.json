@@ -3,7 +3,7 @@
   "scopeName": "source.snakemake",
   "type": "tree-sitter",
   "parser": "tree-sitter-snakemake",
-  "injectionNames": ["snakemake"],
+  "injectionNames": ["snakemake", "snakefile"],
   "fileTypes": ["Snakefile", "smk"],
   "comments": {
     "start": "# "
