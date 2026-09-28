@@ -64,8 +64,7 @@ describe("Snakemake Python highlights", () => {
       .getScopesArray();
   }
 
-  function rawCaptures(startRow, endRow) {
-    const layer = languageMode.rootLanguageLayer;
+  async function rawCaptures(startRow, endRow) {
     const options =
       startRow == null
         ? undefined
@@ -73,7 +72,8 @@ describe("Snakemake Python highlights", () => {
             startPosition: new Point(startRow, 0),
             endPosition: new Point(endRow, 0),
           };
-    return layer.queries.highlightsQuery.captures(layer.tree.rootNode, options);
+    const groups = await editor.getGrammarQueryCaptureGroups("highlightsQuery", options);
+    return groups.find(({ grammar }) => grammar === editor.getGrammar())?.captures ?? [];
   }
 
   it("keeps unbounded Python containers leaf-rooted", () => {
@@ -122,9 +122,9 @@ wrapper(__len__)`);
     // The renderer never asks for the full file. Leaf-rooted candidates make
     // that diagnostic count larger, but keep tile cost independent of a
     // collection that began thousands of rows before the viewport.
-    expect(rawCaptures().length).toBeLessThanOrEqual(220000);
-    expect(rawCaptures(3, 76).length).toBeLessThanOrEqual(1650);
-    expect(rawCaptures(3, 9).length).toBeLessThanOrEqual(140);
+    expect((await rawCaptures()).length).toBeLessThanOrEqual(220000);
+    expect((await rawCaptures(3, 76)).length).toBeLessThanOrEqual(1650);
+    expect((await rawCaptures(3, 9)).length).toBeLessThanOrEqual(140);
   });
 
   it("keeps tile query work bounded inside a large dictionary parent", async () => {
@@ -133,7 +133,7 @@ wrapper(__len__)`);
     lines.push("}");
     await setUp(lines.join("\r\n"));
 
-    expect(rawCaptures(3000, 3006).length).toBeLessThanOrEqual(64);
+    expect((await rawCaptures(3000, 3006)).length).toBeLessThanOrEqual(64);
   });
 
   it("keeps escapes local inside a large triple-quoted string", async () => {
@@ -143,7 +143,7 @@ wrapper(__len__)`);
     await setUp(lines.join("\r\n"));
 
     expect(scopesAt(3000, "\\n")).toContain("constant.character.escape.snakemake");
-    const captures = rawCaptures(3000, 3006).filter(
+    const captures = (await rawCaptures(3000, 3006)).filter(
       ({ name }) => name === "constant.character.escape.snakemake",
     );
     expect(captures.length).toBe(6);
