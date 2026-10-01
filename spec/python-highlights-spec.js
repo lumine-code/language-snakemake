@@ -72,8 +72,9 @@ describe("Snakemake Python highlights", () => {
             startPosition: new Point(startRow, 0),
             endPosition: new Point(endRow, 0),
           };
-    const groups = await editor.getGrammarQueryCaptureGroups("highlightsQuery", options);
-    return groups.find(({ grammar }) => grammar === editor.getGrammar())?.captures ?? [];
+    const query = await editor.getGrammar().getQuery("highlightsQuery");
+    const root = editor.getBuffer().getLanguageMode().rootLanguageLayer.tree.rootNode;
+    return query.captures(root, options);
   }
 
   it("keeps unbounded Python containers leaf-rooted", () => {

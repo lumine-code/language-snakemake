@@ -19,6 +19,7 @@
     "foldsQuery": ["snakemake-python-folds.scm", "snakemake-folds.scm"],
     "indentsQuery": "snakemake-indents.scm",
     "tagsQuery": ["snakemake-python-tags.scm", "snakemake-tags.scm"],
-    "localsQuery": ["snakemake-python-locals.scm", "snakemake-locals.scm"]
+    "localsQuery": ["snakemake-python-locals.scm", "snakemake-locals.scm"],
+    "injectionsQuery": "snakemake-injections.scm"
   }
 }
