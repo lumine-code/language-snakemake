@@ -10,6 +10,8 @@ Snakemake language support.
 - **Navigation**: exposes rule, checkpoint, module, Python, and local definitions from Tree-sitter queries.
 - **Embedded regex**: parses wildcard constraints with the shared regex grammar when available.
 
+![Snakemake syntax highlighting at the default editor font size.](.github/demo.png)
+
 ## Installation
 
 To install `language-snakemake` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/language-snakemake`.

@@ -1,0 +1,16 @@
+{
+  "title": "language-snakemake",
+  "description": "Snakemake syntax highlighting in the editor.",
+  "recordedOn": "2026-10-13",
+  "sourceRevision": "82447d737a2f7437f54e3c88aa6c6ca9da828f66",
+  "mode": "normal",
+  "fontSettings": "default",
+  "images": [
+    {
+      "file": "demo.png",
+      "label": "Snakemake syntax highlighting at the default editor font size.",
+      "width": 1100,
+      "height": 428
+    }
+  ]
+}
