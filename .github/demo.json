@@ -1,16 +1,61 @@
 {
   "title": "language-snakemake",
-  "description": "Snakemake syntax highlighting in the editor.",
-  "recordedOn": "2026-10-13",
-  "sourceRevision": "82447d737a2f7437f54e3c88aa6c6ca9da828f66",
+  "description": "Snakemake syntax highlighting at the default editor font size.",
+  "recordedOn": "2026-10-14",
+  "sourceRevision": "1de1b6e430b606f044a52a8430e7115b16db28ae",
+  "themeSourceRevision": "14a69683b0e3238e2bc128fbfae3866c1e4ee9c6",
   "mode": "normal",
   "fontSettings": "default",
+  "scenario": "demo.js",
+  "recipeHash": "c74828c9040007a6fe698118283b45a19b8ed9c8d3365fc66ad7d12aba651c43",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "electron": "44.7.0",
+    "chrome": "152.0.7977.130",
+    "devicePixelRatio": 1,
+    "locale": "en-GB",
+    "fontFamily": "Fira Code, Menlo, DejaVu Sans Mono, Consolas, monospace",
+    "fontSize": 14,
+    "themes": ["one-day-syntax", "one-day-ui"]
+  },
+  "viewport": { "width": 1100, "height": 428 },
+  "cornerRadius": 10,
+  "sources": {
+    "editor": {
+      "revision": "0362a9fac7d6e153a768c0381800d6f3eb06647a",
+      "dirty": true,
+      "workingTreeHash": "1d75658a8b7d55a69c806a3786c562863bb9d5c71cbf96b3084c6a78c0d648b4"
+    },
+    "package": {
+      "revision": "1de1b6e430b606f044a52a8430e7115b16db28ae",
+      "dirty": true,
+      "workingTreeHash": "bcbc1512a649ffe8ed790a547cfde1c0a1050d4581ad758ac90061e8af569ee2"
+    },
+    "language-snakemake": {
+      "revision": "1de1b6e430b606f044a52a8430e7115b16db28ae",
+      "dirty": true,
+      "workingTreeHash": "bcbc1512a649ffe8ed790a547cfde1c0a1050d4581ad758ac90061e8af569ee2"
+    },
+    "one-theme": {
+      "revision": "14a69683b0e3238e2bc128fbfae3866c1e4ee9c6",
+      "dirty": true,
+      "workingTreeHash": "50ec2f83a6347dd8113870992ec4eb2be4014f3d9e12213c2f51b543f1eca793"
+    }
+  },
+  "fixtures": [
+    {
+      "file": "example.Snakefile",
+      "sha256": "ef8e4b94d164d3b682d4fe58078378914ae498d103d66b60c18d35378fac66de"
+    }
+  ],
   "images": [
     {
       "file": "demo.png",
       "label": "Snakemake syntax highlighting at the default editor font size.",
       "width": 1100,
-      "height": 428
+      "height": 428,
+      "sha256": "dbcd6d09f20724778d33986130fa9afcbecb15c08bbd9fcd1eac989d403e9cbd"
     }
   ]
 }
