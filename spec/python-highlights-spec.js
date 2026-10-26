@@ -48,6 +48,7 @@ describe("Snakemake Python highlights", () => {
     editor.setText(text);
     languageMode = editor.getBuffer().getLanguageMode();
     await languageMode.ready;
+    await languageMode.atTransactionEnd();
   }
 
   function columnFor(row, text, occurrence = 0) {
@@ -74,7 +75,10 @@ describe("Snakemake Python highlights", () => {
           };
     const query = await editor.getGrammar().getQuery("highlightsQuery");
     const root = editor.getBuffer().getLanguageMode().rootLanguageLayer.tree.rootNode;
-    return query.captures(root, options);
+    // Classification predicates also capture the short opening delimiter.
+    // These helper captures produce no scope; keep the visible-scope budget
+    // independent of the internal text used to classify a string.
+    return query.captures(root, options).filter(({ name }) => !name.startsWith("_IGNORE_."));
   }
 
   it("keeps unbounded Python containers leaf-rooted", () => {

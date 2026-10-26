@@ -199,26 +199,26 @@
 ; similarly here. No need to account for the rawness of a string in the scope
 ; name unless someone requests that feature.
 
-((string) @string.quoted.triple.block.format.snakemake
-  (#match? @string.quoted.triple.block.format.snakemake "^[fFtTrR]+\"\"\"")
+((string . (string_start) @_IGNORE_.stringStart) @string.quoted.triple.block.format.snakemake
+  (#match? @_IGNORE_.stringStart "^[fFtTrR]+\"\"\"")
   (#set! capture.final))
 
-((string) @string.quoted.triple.block.snakemake
-  (#match? @string.quoted.triple.block.snakemake "^[bBrRuU]*\"\"\""))
+((string . (string_start) @_IGNORE_.stringStart) @string.quoted.triple.block.snakemake
+  (#match? @_IGNORE_.stringStart "^[bBrRuU]*\"\"\""))
 
-((string) @string.quoted.double.single-line.format.snakemake
-  (#match? @string.quoted.double.single-line.format.snakemake "^[fFtTrR]+\"")
+((string . (string_start) @_IGNORE_.stringStart) @string.quoted.double.single-line.format.snakemake
+  (#match? @_IGNORE_.stringStart "^[fFtTrR]+\"")
   (#set! capture.final))
 
-((string) @string.quoted.double.single-line.snakemake
-  (#match? @string.quoted.double.single-line.snakemake "^[bBrRuU]*\"(?!\")"))
+((string . (string_start) @_IGNORE_.stringStart) @string.quoted.double.single-line.snakemake
+  (#match? @_IGNORE_.stringStart "^[bBrRuU]*\"(?!\")"))
 
-((string) @string.quoted.single.single-line.format.snakemake
-  (#match? @string.quoted.single.single-line.format.snakemake "^[fFtTrR]+?\'")
+((string . (string_start) @_IGNORE_.stringStart) @string.quoted.single.single-line.format.snakemake
+  (#match? @_IGNORE_.stringStart "^[fFtTrR]+?\'")
   (#set! capture.final))
 
-((string) @string.quoted.single.single-line.snakemake
-  (#match? @string.quoted.single.single-line.snakemake "^[bBrRuU]*\'"))
+((string . (string_start) @_IGNORE_.stringStart) @string.quoted.single.single-line.snakemake
+  (#match? @_IGNORE_.stringStart "^[bBrRuU]*\'"))
 
 ((escape_sequence) @constant.character.escape.snakemake
   (#is? test.childOfType string_content))
