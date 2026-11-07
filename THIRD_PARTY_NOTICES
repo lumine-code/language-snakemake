@@ -2,6 +2,9 @@
 Source: https://github.com/osthomas/tree-sitter-snakemake
 Revision: 68010430c3e51c0e84c1ce21c6551df0e2469f51
 
+Parser source: github:osthomas/tree-sitter-snakemake#68010430c3e51c0e84c1ce21c6551df0e2469f51
+Resolved commit: 68010430c3e51c0e84c1ce21c6551df0e2469f51
+
 Original file: LICENSE
 
 Copyright (c) 2016 Max Brunsfeld
